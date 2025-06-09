@@ -1,16 +1,16 @@
-using System;
 using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public GameObject enemyPrefab;      // Prefab to spawn
-    public Transform spawnPoint;        // Location where enemy should appear
-    public float spawnInterval = 20f;   // Time between spawns
-    public float initialDelay = 3f;     // Delay before first spawn
+    public GameObject enemyPrefab;
+    public Transform spawnPoint;
+    public float spawnInterval = 20f;
+    public float initialDelay = 3f;
+    public float spawnRadius = 5f; // max distance enemy can be before respawn
 
     private GameObject currentEnemy;
     private float timer;
-    private bool spawnedInit = false;
+    public bool spawnedInit = false;
 
     void Start()
     {
@@ -21,26 +21,16 @@ public class EnemySpawn : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
-        if (timer <= 0f)
+        bool shouldRespawn =
+            currentEnemy == null ||
+            Vector2.Distance(spawnPoint.position, currentEnemy.transform.position) > spawnRadius;
+
+        if (timer <= 0f && shouldRespawn)
         {
-            if (!spawnedInit)
-            {
-                SpawnEnemy();
-                Debug.Log("Enemy Spawned");
-                spawnedInit = true;
-                timer = spawnInterval;
-            }
-            else if (currentEnemy == null)
-            {
-                SpawnEnemy();
-                Debug.Log("Enemy Spawned");
-                timer = spawnInterval;
-            }
-            else
-            {
-                // Enemy still alive, just reset timer to check again in the future
-                timer = 1f;
-            }
+            SpawnEnemy();
+            Debug.Log("Enemy Spawned");
+            timer = spawnInterval;
+            spawnedInit = true;
         }
     }
 

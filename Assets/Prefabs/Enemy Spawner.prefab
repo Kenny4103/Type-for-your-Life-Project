@@ -47,3 +47,6 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3091558731262605424, guid: 319967e29d472d2458a4164438fb4b32, type: 3}
   spawnPoint: {fileID: 7261763753479255566}
   spawnInterval: 20
+  initialDelay: 3
+  spawnRadius: 5
+  spawnedInit: 0

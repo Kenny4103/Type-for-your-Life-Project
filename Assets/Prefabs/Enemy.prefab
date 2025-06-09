@@ -154,14 +154,7 @@ MonoBehaviour:
   patrolSpeed: 27
   chaseSpeed: 55
   detectionRadius: 5
-  patrolPoints:
-  - {fileID: 9135001386681418831}
-  - {fileID: 6024799793197479758}
-  - {fileID: 8957729966955517798}
   playerTag: Player
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!50 &2289828990872274477
 Rigidbody2D:
   serializedVersion: 5
@@ -185,7 +178,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -199,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8957729966955517798}
   m_Layer: 0
-  m_Name: patrol point 3
+  m_Name: PatrolPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6024799793197479758}
   m_Layer: 0
-  m_Name: patrol point 2
+  m_Name: PatrolPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9135001386681418831}
   m_Layer: 0
-  m_Name: patrol point
+  m_Name: PatrolPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

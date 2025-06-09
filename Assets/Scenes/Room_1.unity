@@ -1362,12 +1362,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7775366687751699479, guid: 351dde474bdb9af42bdcf01f032fe2b4, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 647874229}
+    - target: {fileID: 7775366687751699479, guid: 351dde474bdb9af42bdcf01f032fe2b4, type: 3}
+      propertyPath: spawnInterval
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8834696753126856363, guid: 351dde474bdb9af42bdcf01f032fe2b4, type: 3}
       propertyPath: m_Name
       value: Enemy Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 394927337102304366, guid: 351dde474bdb9af42bdcf01f032fe2b4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 351dde474bdb9af42bdcf01f032fe2b4, type: 3}
@@ -1445,7 +1454,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1054012916
 SpriteRenderer:
   m_ObjectHideFlags: 0
