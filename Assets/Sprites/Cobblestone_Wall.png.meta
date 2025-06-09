@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cc36141e49af4864bb102667a9b316cb
+guid: e56aa985721ba874a995e79238ec8c5a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 208777138800423430
-    second: Cobblestone Wall_0
+      213: -871732084641056484
+    second: Cobblestone_Wall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cobblestone Wall_0
+      name: Cobblestone_Wall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3250
-        height: 120
+        width: 120
+        height: 3250
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 602fb6b93b9b5e200800000000000000
-      internalID: 208777138800423430
+      spriteID: c19b8a3a94cf6e3f0800000000000000
+      internalID: -871732084641056484
       vertices: []
       indices: 
       edges: []
@@ -125,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7a167f5072d449140be926ff7f608ef1
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +146,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Cobblestone Wall_0: 208777138800423430
+      Cobblestone_Wall_0: -871732084641056484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
