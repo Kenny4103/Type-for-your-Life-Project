@@ -1,4 +1,6 @@
+using NavMeshPlus.Extensions;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -11,19 +13,26 @@ public class EnemyMovement : MonoBehaviour
     private int currentPatrolIndex = 0;
     private bool isChasing = false;
     private Rigidbody2D rb;
-    private Transform[] patrolPoints;
+    public Transform[] patrolPoints;
+
+    private NavMeshAgent agent;
 
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+
         rb = GetComponent<Rigidbody2D>();
-        rb.isKinematic = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        //rb.isKinematic = true;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag(playerTag);
         if (playerObj != null) player = playerObj.transform;
 
-        // Dynamically find patrol points under this enemy
-        patrolPoints = GetComponentsInChildren<Transform>();
+        // Dynamically find patrol points
+        patrolPoints = GameObject.Find("Patrol Points").GetComponentsInChildren<Transform>();
         patrolPoints = System.Array.FindAll(patrolPoints, t => t.name.StartsWith("PatrolPoint"));
 
         if (patrolPoints.Length == 0)
@@ -46,8 +55,9 @@ public class EnemyMovement : MonoBehaviour
 
         if (isChasing)
         {
-            Vector2 direction = (player.position - transform.position).normalized;
-            Move(direction, chaseSpeed);
+            agent.SetDestination(player.position);
+            //Vector2 direction = (player.position - transform.position).normalized;
+            //Move(direction, chaseSpeed);
         }
         else
         {
@@ -58,13 +68,21 @@ public class EnemyMovement : MonoBehaviour
     void Patrol()
     {
         Vector2 targetPoint = patrolPoints[currentPatrolIndex].position;
-        Vector2 direction = (targetPoint - (Vector2)transform.position).normalized;
-        Move(direction, patrolSpeed);
 
         if (Vector2.Distance(transform.position, targetPoint) < 0.1f)
         {
             currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
         }
+
+        agent.SetDestination(targetPoint);
+
+        //Vector2 direction = (targetPoint - (Vector2)transform.position).normalized;
+        //Move(direction, patrolSpeed);
+
+        //if (Vector2.Distance(transform.position, targetPoint) < 0.1f)
+        //{
+        //    currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+        //}
     }
 
     void Move(Vector2 direction, float speed)

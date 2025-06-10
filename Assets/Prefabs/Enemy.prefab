@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7574552545642930587}
   - component: {fileID: -2369819299161328590}
   - component: {fileID: 2289828990872274477}
+  - component: {fileID: 8049441843617494827}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Player
@@ -32,10 +33,7 @@ Transform:
   m_LocalPosition: {x: -5.522361, y: 2.8833022, z: 0}
   m_LocalScale: {x: 0.5666378, y: 0.5666378, z: 0.5666378}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9135001386681418831}
-  - {fileID: 6024799793197479758}
-  - {fileID: 8957729966955517798}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!212 &8417590804085867886
@@ -155,6 +153,7 @@ MonoBehaviour:
   chaseSpeed: 55
   detectionRadius: 5
   playerTag: Player
+  patrolPoints: []
 --- !u!50 &2289828990872274477
 Rigidbody2D:
   serializedVersion: 5
@@ -182,96 +181,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!1 &5270250188624907999
-GameObject:
+--- !u!195 &8049441843617494827
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8957729966955517798}
-  m_Layer: 0
-  m_Name: PatrolPoint_3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8957729966955517798
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5270250188624907999}
-  serializedVersion: 2
-  m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: -0.014, y: 1.432, z: 0}
-  m_LocalScale: {x: 1.7647958, y: 1.7647958, z: 1.7647958}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3202486786937190393}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6712256703548807616
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6024799793197479758}
-  m_Layer: 0
-  m_Name: PatrolPoint_2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6024799793197479758
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712256703548807616}
-  serializedVersion: 2
-  m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: -1.525, y: 0.30697268, z: 0}
-  m_LocalScale: {x: 1.7647958, y: 1.7647958, z: 1.7647958}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3202486786937190393}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9124313519536496667
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9135001386681418831}
-  m_Layer: 0
-  m_Name: PatrolPoint_1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9135001386681418831
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9124313519536496667}
-  serializedVersion: 2
-  m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 1.242, y: 0.30697268, z: 0}
-  m_LocalScale: {x: 1.7647958, y: 1.7647958, z: 1.7647958}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3202486786937190393}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 3091558731262605424}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.49999997
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.4226665
+  m_BaseOffset: 0.7113333
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
