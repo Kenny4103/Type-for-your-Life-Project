@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 94ffc5bd2b538904d835a8cfc1a2988f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -153,7 +153,9 @@ MonoBehaviour:
   chaseSpeed: 55
   detectionRadius: 5
   playerTag: Player
+  damageCooldown: 1
   patrolPoints: []
+  canMove: 1
 --- !u!50 &2289828990872274477
 Rigidbody2D:
   serializedVersion: 5

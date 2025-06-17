@@ -1,4 +1,3 @@
-using NavMeshPlus.Extensions;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
     public float chaseSpeed = 3.5f;
     public float detectionRadius = 5f;
     public string playerTag = "Player";
+    public float damageCooldown = 1f; // time between each hit
 
     private Transform player;
     private int currentPatrolIndex = 0;
@@ -16,6 +16,12 @@ public class EnemyMovement : MonoBehaviour
     public Transform[] patrolPoints;
 
     private NavMeshAgent agent;
+    public bool canMove = true;
+    private bool hasTaggedPlayer = false;
+    private float damageTimer = 0f;
+
+    private PlayerMovement playerMovement;
+    private HealthManager healthManager;
 
     void Start()
     {
@@ -25,13 +31,17 @@ public class EnemyMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
-        //rb.isKinematic = true;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag(playerTag);
-        if (playerObj != null) player = playerObj.transform;
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+            playerMovement = player.GetComponent<PlayerMovement>();
+        }
 
-        // Dynamically find patrol points
+        healthManager = FindFirstObjectByType<HealthManager>();
+
         patrolPoints = GameObject.Find("Patrol Points").GetComponentsInChildren<Transform>();
         patrolPoints = System.Array.FindAll(patrolPoints, t => t.name.StartsWith("PatrolPoint"));
 
@@ -41,13 +51,20 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            // Sort patrol points alphabetically for consistent order
             System.Array.Sort(patrolPoints, (a, b) => a.name.CompareTo(b.name));
         }
     }
 
     void Update()
     {
+        if (!canMove)
+        {
+            agent.isStopped = true;
+            damageTimer += Time.deltaTime;
+            TryDrainHealth();
+            return;
+        }
+
         if (player == null || patrolPoints.Length == 0) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -56,8 +73,6 @@ public class EnemyMovement : MonoBehaviour
         if (isChasing)
         {
             agent.SetDestination(player.position);
-            //Vector2 direction = (player.position - transform.position).normalized;
-            //Move(direction, chaseSpeed);
         }
         else
         {
@@ -75,19 +90,29 @@ public class EnemyMovement : MonoBehaviour
         }
 
         agent.SetDestination(targetPoint);
-
-        //Vector2 direction = (targetPoint - (Vector2)transform.position).normalized;
-        //Move(direction, patrolSpeed);
-
-        //if (Vector2.Distance(transform.position, targetPoint) < 0.1f)
-        //{
-        //    currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
-        //}
     }
 
-    void Move(Vector2 direction, float speed)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
+        if (other.CompareTag(playerTag) && !hasTaggedPlayer)
+        {
+            hasTaggedPlayer = true;
+            canMove = false;
+
+            if (playerMovement != null)
+                playerMovement.canMove = false;
+
+            damageTimer = damageCooldown; // so the first hit happens instantly
+        }
+    }
+
+    private void TryDrainHealth()
+    {
+        if (hasTaggedPlayer && damageTimer >= damageCooldown && healthManager != null)
+        {
+            healthManager.TakeDamage();
+            damageTimer = 0f;
+        }
     }
 
     void OnDrawGizmos()
