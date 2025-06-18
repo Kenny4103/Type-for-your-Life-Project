@@ -10,20 +10,43 @@ public class Lives : MonoBehaviour
     public Text livesText; // Assign in inspector
     public HealthManager healthManager;
 
+    public CanvasGroup gameOverPanel; // Assign in inspector (the Game Over panel)
+    public float gameOverDelay = 3f;  // Time before loading LevelSelect
+
     void Start()
     {
         currentLives = maxLives;
         UpdateLivesText();
+
+        // Make sure the Game Over panel is hidden at start
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.alpha = 0f;
+            gameOverPanel.interactable = false;
+            gameOverPanel.blocksRaycasts = false;
+        }
     }
 
     public void LoseLife()
     {
+        if (currentLives <= 0)
+            return; // Prevent lives from going negative or duplicate game over
+
         currentLives--;
 
         if (currentLives <= 0)
         {
             Debug.Log("Game Over");
-            SceneManager.LoadScene("LevelSelect"); // Load title scene
+
+            // Show Game Over panel and begin delay
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.alpha = 1f;
+                gameOverPanel.interactable = true;
+                gameOverPanel.blocksRaycasts = true;
+            }
+
+            StartCoroutine(LoadLevelSelectAfterDelay());
         }
         else
         {
@@ -39,5 +62,11 @@ public class Lives : MonoBehaviour
     {
         if (livesText != null)
             livesText.text = "Lives: " + currentLives;
+    }
+
+    System.Collections.IEnumerator LoadLevelSelectAfterDelay()
+    {
+        yield return new WaitForSeconds(gameOverDelay);
+        SceneManager.LoadScene("LevelSelect");
     }
 }
