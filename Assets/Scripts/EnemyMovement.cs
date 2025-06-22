@@ -3,25 +3,26 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
+    // Public members
     public float patrolSpeed = 2f;
     public float chaseSpeed = 3.5f;
     public float detectionRadius = 5f;
     public string playerTag = "Player";
     public float damageCooldown = 1f; // time between each hit
+    public Transform[] patrolPoints;
+    public bool canMove = true;
 
+    // Private members
     private Transform player;
     private int currentPatrolIndex = 0;
     private bool isChasing = false;
     private Rigidbody2D rb;
-    public Transform[] patrolPoints;
-
     private NavMeshAgent agent;
-    public bool canMove = true;
     private bool hasTaggedPlayer = false;
     private float damageTimer = 0f;
-
     private PlayerMovement playerMovement;
     private HealthManager healthManager;
+    private CanvasGroup playerInputObject;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class EnemyMovement : MonoBehaviour
             playerMovement = player.GetComponent<PlayerMovement>();
         }
 
+        playerInputObject = GameObject.Find("Typing Panel").GetComponent<CanvasGroup>();
         healthManager = FindFirstObjectByType<HealthManager>();
 
         patrolPoints = GameObject.Find("Patrol Points").GetComponentsInChildren<Transform>();
@@ -61,7 +63,7 @@ public class EnemyMovement : MonoBehaviour
         {
             agent.isStopped = true;
             damageTimer += Time.deltaTime;
-            TryDrainHealth();
+            playerInputObject.alpha = 1;
             return;
         }
 
@@ -94,21 +96,23 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(playerTag) && !hasTaggedPlayer)
+        if (playerTag == other.name && !hasTaggedPlayer)
         {
             hasTaggedPlayer = true;
             canMove = false;
 
             if (playerMovement != null)
+            {
                 playerMovement.canMove = false;
-
+            }
             damageTimer = damageCooldown; // so the first hit happens instantly
         }
     }
 
     private void TryDrainHealth()
     {
-        if (hasTaggedPlayer && damageTimer >= damageCooldown && healthManager != null)
+        if (!healthManager) return;
+        if (hasTaggedPlayer && damageTimer >= damageCooldown)
         {
             healthManager.TakeDamage();
             damageTimer = 0f;
