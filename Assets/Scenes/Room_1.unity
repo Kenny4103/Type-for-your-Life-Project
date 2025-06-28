@@ -221,6 +221,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54bd7c04ef51eab45a69c393f0a8d3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  correctStrings:
+  - Hello
+  - Are you Sure
+  - Please let me go
+  - I shall pass
+  - '?'
+  inputField: {fileID: 1570620524}
 --- !u!1 &26027638
 GameObject:
   m_ObjectHideFlags: 0

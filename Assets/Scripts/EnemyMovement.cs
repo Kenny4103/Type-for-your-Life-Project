@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -63,7 +64,8 @@ public class EnemyMovement : MonoBehaviour
         {
             agent.isStopped = true;
             damageTimer += Time.deltaTime;
-            playerInputObject.alpha = 1;
+            if(playerInputObject.alpha < 1) playerInputObject.alpha = 1f;
+            TryDrainHealth();
             return;
         }
 
@@ -106,6 +108,14 @@ public class EnemyMovement : MonoBehaviour
                 playerMovement.canMove = false;
             }
             damageTimer = damageCooldown; // so the first hit happens instantly
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name == playerTag)
+        {
+            agent.isStopped = false;
         }
     }
 
