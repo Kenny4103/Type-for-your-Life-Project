@@ -110,6 +110,11 @@ public class EnemyMovement : MonoBehaviour
             }
             damageTimer = damageCooldown; // so the first hit happens instantly
         }
+
+        GameObject.Find("Typing Panel")
+            .GetComponent<CheckPlayerStringInput>()
+            .SetTaggedEnemy(this.gameObject);
+
     }
 
     private void OnTriggerExit2D(Collider2D other)

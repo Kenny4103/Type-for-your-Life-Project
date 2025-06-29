@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,29 +6,51 @@ public class CheckPlayerStringInput : MonoBehaviour
 {
     private GameObject[] _enemies;
     private bool _isCorrect = false;
-    public String[] correctStrings;// Must be set from -> Scene -> Background Canvas -> Typing Panel
-    public InputField inputField; // Must be selected child component not a must but for the sake of simplicity.
+    private GameObject _taggingEnemy;
+
+    public string[] correctStrings;
+    public InputField inputField;
+    public Text promptText; // assign in inspector
+
+    private string currentTargetString;
 
     void Start()
     {
-        GetComponent<CanvasGroup>().alpha = 0f; // set Alpha of Typing panel
-        GetComponent<Image>().color = Color.grey; // set color of Typing panel
+        GetComponent<CanvasGroup>().alpha = 0f;
+        GetComponent<Image>().color = Color.grey;
+
+        SelectRandomString();
     }
-    
-    public void checkPlayerStringInput( string playerInput)
+
+    void SelectRandomString()
+    {
+        if (correctStrings.Length > 0)
+        {
+            currentTargetString = correctStrings[UnityEngine.Random.Range(0, correctStrings.Length)];
+
+            if (promptText != null)
+                promptText.text = "Type: " + currentTargetString;
+        }
+        else
+        {
+            Debug.LogWarning("No correct strings provided in the array.");
+        }
+    }
+
+    public void SetTaggedEnemy(GameObject enemy)
+    {
+        _taggingEnemy = enemy;
+        SelectRandomString(); // Choose new string each time an enemy tags you
+    }
+
+    public void checkPlayerStringInput(string playerInput)
     {
         GetComponent<Image>().color = Color.grey;
-        
-        if (correctStrings.Length == 0)
-        {
-            Debug.Log("ther are no strings in CorrectStrings array");
-        }
 
-        foreach (String correctString in correctStrings)
-        {
-            if (!_isCorrect) _isCorrect = correctString == playerInput;
-        }
+        _isCorrect = playerInput.Equals(currentTargetString, StringComparison.Ordinal);
+
         _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
         if (_isCorrect)
         {
             OnSuccessEnteredText();
@@ -43,17 +64,24 @@ public class CheckPlayerStringInput : MonoBehaviour
 
     void OnSuccessEnteredText()
     {
-
-        GameObject.Find("Typing Panel").GetComponent<CanvasGroup>().alpha = 0f;
+        GetComponent<CanvasGroup>().alpha = 0f;
         inputField.text = "";
         _isCorrect = false;
+
         GameObject.Find("Player").GetComponent<PlayerMovement>().canMove = true;
+
         foreach (GameObject enemy in _enemies)
         {
-            if (!enemy.GetComponent<EnemyMovement>().canMove)
+            if (enemy != null && !enemy.GetComponent<EnemyMovement>().canMove)
             {
                 enemy.GetComponent<EnemyMovement>().canMove = true;
             }
+        }
+
+        if (_taggingEnemy != null)
+        {
+            Destroy(_taggingEnemy);
+            _taggingEnemy = null;
         }
     }
 }

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolSpeed: 27
   chaseSpeed: 55
-  detectionRadius: 1
+  detectionRadius: 3
   playerTag: Player
   damageCooldown: 1
   patrolPoints: []
