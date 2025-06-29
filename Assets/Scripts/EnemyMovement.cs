@@ -98,6 +98,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!canMove) return;
         if (playerTag == other.name && !hasTaggedPlayer)
         {
             hasTaggedPlayer = true;
@@ -116,6 +117,8 @@ public class EnemyMovement : MonoBehaviour
         if (other.name == playerTag)
         {
             agent.isStopped = false;
+            hasTaggedPlayer = false;
+            canMove = true;
         }
     }
 

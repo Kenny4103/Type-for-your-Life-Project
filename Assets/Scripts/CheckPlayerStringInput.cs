@@ -30,7 +30,7 @@ public class CheckPlayerStringInput : MonoBehaviour
             if (!_isCorrect) _isCorrect = correctString == playerInput;
         }
         _enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (_isCorrect)/// implement this texts to check against if player got it right
+        if (_isCorrect)
         {
             OnSuccessEnteredText();
         }
@@ -46,6 +46,7 @@ public class CheckPlayerStringInput : MonoBehaviour
 
         GameObject.Find("Typing Panel").GetComponent<CanvasGroup>().alpha = 0f;
         inputField.text = "";
+        _isCorrect = false;
         GameObject.Find("Player").GetComponent<PlayerMovement>().canMove = true;
         foreach (GameObject enemy in _enemies)
         {
