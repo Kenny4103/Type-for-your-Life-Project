@@ -223,11 +223,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correctStrings:
-  - Hello
-  - Are you Sure
-  - Please let me go
-  - I shall pass
-  - '?'
+  - Go Away
+  - Leave!
+  - Shoo!
+  - Scram!
+  - Beat It
   inputField: {fileID: 1570620524}
   promptText: {fileID: 1782456710}
 --- !u!1 &26027638
