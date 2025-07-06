@@ -2287,7 +2287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f68b5844c864f848b012aadf4770c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 50
   currentHealth: 0
   healthText: {fileID: 46370551}
   livesManager: {fileID: 580295562}
@@ -3807,7 +3807,7 @@ PrefabInstance:
       objectReference: {fileID: 1240866939}
     - target: {fileID: 5396725090441564104, guid: 650a7bb4ffc78234e8dce1c881f58208, type: 3}
       propertyPath: nextSceneName
-      value: Room_3
+      value: LevelSelect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
